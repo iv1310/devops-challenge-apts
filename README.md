@@ -10,7 +10,18 @@ This basic AWS Lambda function handles query parameters, headers, and request bo
 How It Works:
 
 - Simulated Error: Add the simulate_error=true query parameter to trigger a 500 response.
+
+```Bash
+$ curl -XGET "https://xxxxxx.execute-api.xxxxx.amazonaws.com/test/data?simulate_error=true"
+{"error": "Simulated Internal Server Error"}%
+```
+
 - Greeter Logic: Extract the greeter value from headers, query params, or the request body.
+
+```Bash
+$ curl -XGET "https://xxxxxx.execute-api.xxxxxx.amazonaws.com/test/data?greeter=Patch"
+Hello, Patch!%
+```
 
 ## API Gateway Logging
 
@@ -55,6 +66,8 @@ echo "Query started (query id: $QUERY_ID), please hold ..." && sleep 5
 aws logs get-query-results --query-id $QUERY_ID
 ```
 
+![Alt Total req 30 mins with script](./assets/30reqs_curl.png "Requests for 30 minutes with script")
+
 ![Alt Total req 30 mins](./assets/30reqs.png "Requests for 30 minutes")
 
 2. Find Requests with 500 Errors
@@ -73,6 +86,8 @@ echo "Query started (query id: $QUERY_ID), please hold ..." && sleep 5
 aws logs get-query-results --query-id $QUERY_ID
 
 ```
+
+![Alt Status code 5xx with script](./assets/500errors_curl.png "Status code 5xx with script.")
 
 ![Alt Status code 5xx](./assets/500errors.png "Status code 5xx.")
 
